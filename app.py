@@ -115,8 +115,20 @@ def main():
                 st.write(f"Processing time: {processing_time:.2f} seconds")
 
                 # Object distribution
-                
+                st.subheader("Object Distribution")
+                import pandas as pd
+                class_names = list(video_stats['class_counts'].keys())
+                class_counts = list(video_stats['class_counts'].values())
 
+                # Creating a bar chart
+                chart_data = {
+                    'Class': class_names,
+                    'Count': class_counts
+                }
+
+                chart_df = pd.DataFrame(chart_data)
+                chart = create_object_chart(chart_df, x_column='Class', y_column='Count', title="Object Distribution in Video")
+                st.plotly_chart(chart, use_container_width=True)
 
     with tab3:
         st.header("About Object-Tracker")
