@@ -54,6 +54,7 @@ cover/
 # Translations
 *.mo
 *.pot
+*.pt
 
 # Django stuff:
 *.log

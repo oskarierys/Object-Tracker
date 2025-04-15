@@ -9,6 +9,10 @@ import io
 import sys
 import time
 
+# Disable Streamlit's file watcher for torch.classes to avoid the runtime error
+if hasattr(torch, '_classes'):
+    torch._classes.__path__ = []
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # Importing necessary modules from YOLOv5 repository
@@ -25,10 +29,10 @@ st.set_page_config(
 )
             
 def main():
-    st.title("Objeckt Tracker")
+    st.title("Object Tracker")
     st.subheader("Real-time Object Detection and Tracking")
 
-    with st.spinnner("Loading model..."):
+    with st.spinner("Loading model..."):
         model = load_model()
         st.success("Model loaded successfully!")
     
@@ -159,3 +163,10 @@ def main():
         """)
         
         st.info("This project demonstrates skills in computer vision, deep learning, and interactive application development.")
+
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
+        st.info("Make sure you have all required libraries installed:\n```\npip install streamlit opencv-python torch torchvision numpy pillow plotly pandas\n```")
